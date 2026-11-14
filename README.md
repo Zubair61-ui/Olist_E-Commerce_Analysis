@@ -1,4 +1,4 @@
-# Data_analysis_project_1
+# Olist E-Commerce Analysis
 # Olist E-Commerce Analysis: Why Did Revenue Growth Slow Down?
 
 ## The Problem
@@ -10,15 +10,12 @@ digs into the order, payment, delivery, and review data to answer one
 question: **why did growth slow down, and what should the business fix
 first?**
 
-I picked this dataset on purpose because it's messy and relational,
-which is closer to real analyst work than a single clean spreadsheet.
-There are 9 separate tables that need to be joined, cleaned, and
-checked before any of the numbers can be trusted.
+.
 
 ## Dataset
 
 Brazilian E-Commerce Public Dataset by Olist, from Kaggle.
-[Link to dataset](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
+[Dataset](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
 
 It covers about 100,000 real, anonymized orders placed on the Olist
 platform between 2016 and 2018, spread across 9 CSV files:
@@ -59,7 +56,7 @@ Before writing any analysis queries, every table was checked for the
 same five things: duplicate keys, missing values, wrong data types,
 values that don't make logical sense, and inconsistent category names.
 The full set of checks is in
-[`olist_data_cleaning_checklist.sql`](./olist_data_cleaning_checklist.sql).
+[`olist_data_cleaning.sql`](Data_cleaning_for_all_tables_separately.sql).
 
 What actually came up during cleaning:
 
@@ -135,7 +132,7 @@ like bed/bath/table have high order volume but a much lower value per
 order. These are two different kinds of "good" categories and probably
 need different strategies.
 
-![Page 1 - Revenue Overview](./screenshots/page1_dashboard.png)
+![Page 1 - Revenue Overview](page1_dashboard.png)
 *Revenue trend and top categories. Revenue grows steadily through 2017 and plateaus in 2018.*
 
 ### 3. Late delivery has a big, clear effect on review scores
@@ -152,7 +149,7 @@ but breaking the promised delivery date matters more.
 
 About 8% of all orders were delivered late.
 
-![Page 2 - Delivery & Satisfaction](./screenshots/page2_dashboard.png)
+![Page 2 - Delivery & Satisfaction](page2_dashboard.png)
 *The core finding: late orders score 2.57 vs 4.30 for on-time orders, and scores drop sharply after 22 days.*
 
 ### 4. Customers rarely come back, and it's not really a regional problem
@@ -173,7 +170,7 @@ Given the delivery time finding above, this is likely connected:
 São Paulo's order volume probably means more logistics complexity and
 more chances for something to arrive late.
 
-![Page 3 - Regional Performance](./screenshots/page3_dashboard.png)
+![Page 3 - Regional Performance](page3_dashboard.png)
 *São Paulo drives most of the revenue but has one of the lowest satisfaction scores, and repeat purchase rate is low almost everywhere.*
 
 ## Recommendations
@@ -200,38 +197,5 @@ more chances for something to arrive late.
    fully reliable yet, worth fixing at the source before it affects
    more reporting down the line.
 
-## Repo Structure
 
-```
-├── README.md
-├── sql/
-│   ├── olist_data_cleaning_checklist.sql
-│   ├── 01_monthly_revenue_trend.sql
-│   ├── 02_category_performance.sql
-│   ├── 03_delivery_vs_reviews.sql
-│   ├── 04_repeat_purchase_by_state.sql
-│   └── 05_seller_region_performance.sql
-├── dashboard/
-│   └── olist_dashboard.pbix
-└── screenshots/
-    ├── page1_dashboard.png
-    ├── page2_dashboard.png
-    └── page3_dashboard.png
-```
 
-## Limitations
-
-- The `geolocation` table wasn't used, since none of the 5 business
-  questions needed a map. It's there if this project gets extended
-  later.
-- Review scores and delivery times are correlated, not proven to be
-  causal. It's likely, based on how large and consistent the gap is,
-  but this analysis doesn't rule out other factors happening at the
-  same time.
-- States with very few customers (under roughly 300) were excluded
-  from the repeat-purchase chart, since their percentages aren't
-  reliable at that sample size.
-
-## Contact
-
-[Your name] – [your email] – [LinkedIn link]
